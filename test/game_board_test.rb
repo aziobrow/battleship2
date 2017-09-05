@@ -51,5 +51,15 @@ class GameBoardTest < Minitest::Test
     assert_equal ['A4', 'B3'], game_board.winning_coordinates
   end
 
+  def test_it_can_get_all_keys
+    game_board = GameBoard.new
+    expected_value = ["A1", "A2", "A3", "A4",
+                      "B1", "B2", "B3", "B4",
+                      "C1", "C2", "C3", "C4",
+                      "D1", "D2", "D3", "D4"]
+
+    assert_equal expected_value, game_board.get_all_keys
+  end
+
 
 end

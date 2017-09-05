@@ -32,4 +32,22 @@ class Coordinates
     false
   end
 
+  def count_coordinate_range
+    if same_row?
+      columns = @coordinates_to_check.collect { |coordinate| coordinate[1]  }
+      columns[1].to_i - columns[0].to_i
+    elsif same_column?
+      rows = @coordinates_to_check.collect { |coordinate| coordinate[0][0]  }
+      rows[1].codepoints[0] - rows[0].codepoints[0]
+    else
+      p "Sorry, this range is invalid."
+    end
+  end
+
+  def coordinates_exist?
+    all_keys = @game_board.get_all_keys
+    return true if (all_keys & @coordinates_to_check) == @coordinates_to_check
+    false
+  end
+
 end

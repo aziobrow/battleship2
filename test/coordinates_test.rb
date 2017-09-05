@@ -46,4 +46,38 @@ class CoordinatesTest < Minitest::Test
     refute coordinates.same_column?
   end
 
+  def test_it_can_count_coordinate_range
+    coordinates = Coordinates.new(['B1', 'D1'])
+
+    assert_equal 2, coordinates.count_coordinate_range
+
+    coordinates = Coordinates.new(['C1', 'C3'])
+
+    assert_equal 2, coordinates.count_coordinate_range
+
+    coordinates = Coordinates.new(['A1', 'A2'])
+
+    assert_equal 1, coordinates.count_coordinate_range
+
+    coordinates = Coordinates.new(['B1', 'D2'])
+
+    assert_equal "Sorry, this range is invalid.", coordinates.count_coordinate_range
+  end
+
+  def test_it_knows_if_coordinates_exist_on_gameboard
+    coordinates = Coordinates.new(['A1', 'A3'])
+
+    assert coordinates.coordinates_exist?
+
+    coordinates = Coordinates.new(['A1', 'E3'])
+
+    refute coordinates.coordinates_exist?
+
+    coordinates = Coordinates.new(['C2', 'B7'])
+
+    refute coordinates.coordinates_exist?
+  end
+
+
+
 end

@@ -43,4 +43,14 @@ class GameBoard
     ship_coordinates.flatten
   end
 
+  def get_all_keys
+    all_keys = []
+    @board.each do |row|
+      row.each do |game_square|
+        all_keys << game_square.keys
+      end
+    end
+    all_keys.flatten
+  end
+  
 end
