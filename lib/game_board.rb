@@ -21,13 +21,13 @@ class GameBoard
     end
   end
 
-  def find_row(letter)
+  def collect_row(letter)
     position = @rows.index(letter)
     row = @board[position]
   end
 
-  def find_column(number)
-    position = @columns.index(number)
+  def collect_column(number)
+    position = @columns.index(number.to_s)
     column = @board.map {|row| row[position]}
   end
 
@@ -57,5 +57,16 @@ class GameBoard
       end
     end
   end
+
+  def find_game_square_row(game_square)
+    key = game_square.keys[0]
+    @rows.index(key[0])
+  end
+
+  def find_game_square_column(game_square)
+    key = game_square.keys[0]
+    @columns.index(key[1])
+  end
+
 
 end

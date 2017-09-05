@@ -22,13 +22,13 @@ class GameBoardTest < Minitest::Test
   def test_it_can_find_a_row_of_board
     game_board = GameBoard.new
 
-    assert_equal [{"B1"=>nil}, {"B2"=>nil}, {"B3"=>nil}, {"B4"=>nil}], game_board.find_row('B')
+    assert_equal [{"B1"=>nil}, {"B2"=>nil}, {"B3"=>nil}, {"B4"=>nil}], game_board.collect_row('B')
   end
 
   def test_it_can_find_a_column_of_board
     game_board = GameBoard.new
 
-    assert_equal [{"A2"=>nil}, {"B2"=>nil}, {"C2"=>nil}, {"D2"=>nil}], game_board.find_column('2')
+    assert_equal [{"A2"=>nil}, {"B2"=>nil}, {"C2"=>nil}, {"D2"=>nil}], game_board.collect_column('2')
   end
 
   def test_it_can_collect_keys_of_game_board_row
@@ -40,7 +40,7 @@ class GameBoardTest < Minitest::Test
 
   def test_it_can_collect_keys_of_game_board_column
     game_board = GameBoard.new
-    column = game_board.find_column('3')
+    column = game_board.collect_column('3')
 
     assert_equal ['A3', 'B3', 'C3', 'D3'], game_board.collect_keys(column)
   end
@@ -83,6 +83,28 @@ class GameBoardTest < Minitest::Test
     shot.shot_is_fired
 
     assert_equal ['B2'], game_board.all_shots
+  end
+
+  def test_it_finds_column_of_game_square
+    game_board = GameBoard.new
+    game_square = game_board.find_game_square('A2')
+
+    assert_equal 1, game_board.find_game_square_column(game_square)
+
+    game_square = game_board.find_game_square('D4')
+
+    assert_equal 3, game_board.find_game_square_column(game_square)
+  end
+
+  def test_it_finds_row_of_game_square
+    game_board = GameBoard.new
+    game_square = game_board.find_game_square('A2')
+
+    assert_equal 0, game_board.find_game_square_row(game_square)
+
+    game_square = game_board.find_game_square('C3')
+
+    assert_equal 2, game_board.find_game_square_row(game_square)
   end
 
 end

@@ -23,7 +23,7 @@ class Coordinates
 
   def same_column?
     column_position = @coordinates_to_check[0][1]
-    column = game_board.find_column(column_position)
+    column = game_board.collect_column(column_position)
 
     keys = game_board.collect_keys(column)
     game_board.board.each do |row|
@@ -72,7 +72,7 @@ class Coordinates
   end
 
   def add_third_coordinate_for_same_column
-    column = @game_board.find_column(@coordinates_to_check[0][1])
+    column = @game_board.collect_column(@coordinates_to_check[0][1])
     column_keys = column.map {|game_square| game_square.keys}.flatten
     index = column_keys.index(@coordinates_to_check[0])
     first_coordinate = column_keys[index]
