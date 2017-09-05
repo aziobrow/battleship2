@@ -18,6 +18,21 @@ class GameBoard
     end
   end
 
+  def find_row(letter)
+    position = @rows.index(letter)
+    row = @board[position]
+  end
+
+  def find_column(number)
+    position = @columns.index(number)
+    column = @board.map {|row| row[position]}
+  end
+
+  def collect_keys(row_or_column)
+    keys = row_or_column.map {|game_square| game_square.keys}
+    keys.flatten
+  end
+
   def winning_coordinates
     ship_coordinates = []
     @board.each do |row|

@@ -15,6 +15,32 @@ class GameBoardTest < Minitest::Test
     assert_equal [{"D1"=>nil}, {"D2"=>nil}, {"D3"=>nil}, {"D4"=>nil}], game_board.board[3]
   end
 
+  def test_it_can_find_a_row_of_board
+    game_board = GameBoard.new
+
+    assert_equal [{"B1"=>nil}, {"B2"=>nil}, {"B3"=>nil}, {"B4"=>nil}], game_board.find_row('B')
+  end
+
+  def test_it_can_find_a_column_of_board
+    game_board = GameBoard.new
+
+    assert_equal [{"A2"=>nil}, {"B2"=>nil}, {"C2"=>nil}, {"D2"=>nil}], game_board.find_column('2')
+  end
+
+  def test_it_can_collect_keys_of_game_board_row
+    game_board = GameBoard.new
+    row = game_board.board[0]
+
+    assert_equal ['A1', 'A2', 'A3', 'A4'], game_board.collect_keys(row)
+  end
+
+  def test_it_can_collect_keys_of_game_board_column
+    game_board = GameBoard.new
+    column = game_board.find_column('3')
+
+    assert_equal ['A3', 'B3', 'C3', 'D3'], game_board.collect_keys(column)
+  end
+
   def test_it_can_find_winning_coordinates
     game_board = GameBoard.new
     key1 = game_board.board[0][3].keys[0]
