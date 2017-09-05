@@ -38,17 +38,17 @@ class ComputerPlayer
   def invalid_previous?(coordinate, size)
     previous_in_row = previous_coordinate_in_row(coordinate, size)
     previous_in_column = previous_coordinate_in_column(coordinate, size)
-    return false if previous_in_row.include?("@") or previous_in_row.include?("?")
-    return false if previous_in_column.include?("0") or previous_in_column.include?("/")
-    true
+    return true if previous_in_row.include?("0") or previous_in_row.include?("/")
+    return true if previous_in_column.include?("@") or previous_in_column.include?("?")
+    false
   end
 
   def invalid_next?(coordinate, size)
     next_in_row = next_coordinate_in_row(coordinate, size)
     next_in_column = next_coordinate_in_column(coordinate, size)
-    return false if next_in_row.include?('E') or next_in_row.include?('F')
-    return false if next_in_row.include?('5') or next_in_row.include?('6')
-    true
+    return true if next_in_row.include?('5') or next_in_row.include?('6')
+    return true if next_in_row.include?('E') or next_in_row.include?('F')
+    false
   end
 
   def rig_the_coin_flip(coordinate)

@@ -38,27 +38,67 @@ class ComputerPlayerTest < Minitest::Test
   end
 
   def test_it_can_name_previous_coordinate_in_row
-    skip
     ai_player = ComputerPlayer.new
-    previous_coordinate = ai_player.previous_coordinate_in_row('D3')
+    previous_coordinate = ai_player.previous_coordinate_in_row('D3', 1)
 
     assert_equal 'D2', previous_coordinate
+
+    previous_coordinate = ai_player.previous_coordinate_in_row('D3', 2)
+
+    assert_equal 'D1', previous_coordinate
   end
 
   def test_it_can_name_next_coordinate_in_column
-    skip
     ai_player = ComputerPlayer.new
-    next_coordinate = ai_player.next_coordinate_in_column('C2')
+    next_coordinate = ai_player.next_coordinate_in_column('A2', 1)
 
-    assert_equal 'D2', next_coordinate
+    assert_equal 'B2', next_coordinate
+
+    next_coordinate = ai_player.next_coordinate_in_column('A2', 2)
+
+    assert_equal 'C2', next_coordinate
   end
 
   def test_it_can_name_previous_coordinate_in_column
-    skip
     ai_player = ComputerPlayer.new
-    previous_coordinate = ai_player.previous_coordinate_in_column('D3')
+    previous_coordinate = ai_player.previous_coordinate_in_column('D3', 1)
 
     assert_equal 'C3', previous_coordinate
+
+    previous_coordinate = ai_player.previous_coordinate_in_column('D3', 2)
+
+    assert_equal 'B3', previous_coordinate
+  end
+
+  def test_it_knows_invalid_previous_coordinates_for_rows_and_columns
+    ai_player = ComputerPlayer.new
+    previous_coordinate = ai_player.previous_coordinate_in_column('A1', 1)
+
+    assert ai_player.invalid_previous?(previous_coordinate, 1)
+
+    previous_coordinate = ai_player.previous_coordinate_in_row('B1', 1)
+
+    assert ai_player.invalid_previous?(previous_coordinate, 1)
+
+    previous_coordinate = ai_player.previous_coordinate_in_column('A3', 2)
+
+    refute ai_player.invalid_previous?(previous_coordinate, 2)
+  end
+
+  def test_it_knows_invalid_next_coordinates_for_rows_and_columns
+    ai_player = ComputerPlayer.new
+    next_coordinate = ai_player.next_coordinate_in_column('B4', 1)
+
+    assert ai_player.invalid_previous?(next_coordinate, 1)
+
+    next_coordinate = ai_player.next_coordinate_in_row('D1', 1)
+    require "pry"; binding.pry
+
+    assert ai_player.invalid_next?(next_coordinate, 1)
+
+    next_coordinate = ai_player.next_coordinate_in_column('C2', 2)
+
+    refute ai_player.invalid_next?(next_coordinate, 2)
   end
 
   # def test_it_can_randomly_choose_coordinate_in_same_row
