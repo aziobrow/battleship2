@@ -1,12 +1,14 @@
 class GameBoard
 
   attr_reader :board, :rows, :columns, :winning_positions
-
+  attr_accessor :two_unit_ship, :three_unit_ship
   def initialize
     @rows = ['A', 'B', 'C', 'D']
     @columns = ['1', '2', '3', '4']
     @board = setup_board
     @winning_positions = []
+    @two_unit_ship = []
+    @three_unit_ship = []
   end
 
   def setup_board
@@ -34,13 +36,7 @@ class GameBoard
   end
 
   def winning_coordinates
-    ship_coordinates = []
-    @board.each do |row|
-      row.each do |game_square|
-        ship_coordinates << game_square.keys if game_square.values[0] != nil
-      end
-    end
-    ship_coordinates.flatten
+    @two_unit_ship.concat(@three_unit_ship)
   end
 
   def get_all_keys

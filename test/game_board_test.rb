@@ -8,6 +8,8 @@ class GameBoardTest < Minitest::Test
 
     assert_instance_of Array, game_board.board
     assert_equal 4, game_board.board.count
+    assert_equal [], game_board.two_unit_ship
+    assert_equal [], game_board.three_unit_ship
 
     assert_equal [{"A1"=>nil}, {"A2"=>nil}, {"A3"=>nil}, {"A4"=>nil}], game_board.board[0]
     assert_equal [{"B1"=>nil}, {"B2"=>nil}, {"B3"=>nil}, {"B4"=>nil}], game_board.board[1]
@@ -43,12 +45,13 @@ class GameBoardTest < Minitest::Test
 
   def test_it_can_find_winning_coordinates
     game_board = GameBoard.new
-    key1 = game_board.board[0][3].keys[0]
-    key2 = game_board.board[1][2].keys[0]
-    game_board.board[0][3] = {key1 => true}
-    game_board.board[1][2]= {key2 => true}
+    game_board.two_unit_ship = ['A1','A2']
 
-    assert_equal ['A4', 'B3'], game_board.winning_coordinates
+    assert_equal ['A1', 'A2'], game_board.winning_coordinates
+
+    game_board.three_unit_ship = ['B3', 'C3', 'D3']
+
+    assert_equal ['A1', 'A2', 'B3', 'C3', 'D3'], game_board.winning_coordinates
   end
 
   def test_it_can_get_all_keys
@@ -61,7 +64,7 @@ class GameBoardTest < Minitest::Test
     assert_equal expected_value, game_board.get_all_keys
   end
 
-  def test_it_can_game_square
+  def test_it_can_find_game_square
     game_board = GameBoard.new
 
     assert_equal ({'A1'=>nil}), game_board.find_game_square('A1')
