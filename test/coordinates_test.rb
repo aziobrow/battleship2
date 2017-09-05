@@ -93,6 +93,77 @@ class CoordinatesTest < Minitest::Test
     assert coordinates.already_occupied?
   end
 
+  def test_it_knows_it_has_third_coordinate
+    coordinates = Coordinates.new(['B1', 'B2'])
+
+    refute coordinates.three_coordinates?
+
+    coordinates = Coordinates.new(['D1', 'D3'])
+
+    assert coordinates.three_coordinates?
+
+    coordinates = Coordinates.new(['A2', 'C2'])
+
+    assert coordinates.three_coordinates?
+  end
+
+  def test_it_can_create_third_coordinate_for_same_row
+    coordinates = Coordinates.new(['D1', 'D3'])
+
+    assert_equal ["D1", "D2", "D3"], coordinates.add_third_coordinate_for_same_row
+  end
+
+  def test_it_can_create_third_coordinate_for_same_column
+    coordinates = Coordinates.new(['A2', 'C2'])
+
+    assert_equal ['A2', 'B2', 'C2'], coordinates.add_third_coordinate_for_same_column
+  end
+
+  def test_it_recognizes_invalid_ship_placement
+    #put in ships class?
+    #add test for two and three unit ship conditions
+    coordinates = Coordinates.new(['D1', 'D3'])
+
+    refute coordinates.invalid_ship_placement?
+
+    coordinates = Coordinates.new(['D1'])
+
+    assert coordinates.invalid_ship_placement?
+
+    coordinates = Coordinates.new(['A1', 'A1'])
+
+    assert coordinates.invalid_ship_placement?
+
+    coordinates = Coordinates.new(['D1', 'B2'])
+
+    assert coordinates.invalid_ship_placement?
+
+    coordinates = Coordinates.new(['C1', 'C4'])
+
+    assert coordinates.invalid_ship_placement?
+
+    coordinates = Coordinates.new(['B3', 'Z2'])
+
+    assert coordinates.invalid_ship_placement?
+  end
+
+  def test_it_generates_valid_coordinates
+    coordinates = Coordinates.new(['D1', 'B2'])
+
+    assert_nil coordinates.generate_valid_coordinates
+
+    coordinates = Coordinates.new(['A1', 'A3'])
+
+    assert_equal ['A1', 'A2', 'A3'], coordinates.generate_valid_coordinates
+
+    coordinates = Coordinates.new(['B2', 'D2'])
+
+    assert_equal ['B2', 'C2', 'D2'], coordinates.generate_valid_coordinates
+
+    coordinates = Coordinates.new(['C3', 'C4'])
+
+    assert_equal ['C3', 'C4'], coordinates.generate_valid_coordinates
+  end
 
 
 end

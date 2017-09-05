@@ -52,9 +52,57 @@ class Coordinates
 
   def already_occupied?
     @coordinates_to_check.each do |coordinate|
-      return true if @game_board.find_key_value(coordinate)
+      game_square = @game_board.find_game_square(coordinate)
+      return true if game_square.values[0] == true
     end
     false
+  end
+
+  def three_coordinates?
+    length = count_coordinate_range
+    return true if length == 2
+    false
+  end
+
+  def add_third_coordinate_for_same_row
+    first_coordinate = @coordinates_to_check[0]
+    middle_coordinate = first_coordinate.next
+    third_coordinate = middle_coordinate.next
+    three_coordinates = [first_coordinate, middle_coordinate, third_coordinate]
+  end
+
+  def add_third_coordinate_for_same_column
+    column = @game_board.find_column(@coordinates_to_check[0][1])
+    column_keys = column.map {|game_square| game_square.keys}.flatten
+    index = column_keys.index(@coordinates_to_check[0])
+    first_coordinate = column_keys[index]
+    middle_coordinate = column_keys[index + 1]
+    third_coordinate = column_keys[index + 2]
+    three_coordinates = [first_coordinate, middle_coordinate, third_coordinate]
+  end
+
+  def invalid_ship_placement? #put in ships class?
+    coordinates = @coordinates_to_check
+    return true if coordinates.length != 2
+    return true if same_column? && same_row?
+    return true if !(same_column? || same_row?)
+    return true if already_occupied?
+    return true if count_coordinate_range > 2
+    return true if !coordinates_exist?
+    # return true if count_coordinate_range == 2 and @three_unit_ship == true
+    # return true if count_coordinate_range == 1 and @two_unit_ship == true
+    false
+  end
+
+  def generate_valid_coordinates
+    p "Sorry, invalid coordinates. Try again." and return if invalid_ship_placement?
+    if three_coordinates? && same_row?
+      add_third_coordinate_for_same_row
+    elsif three_coordinates? && same_column?
+      add_third_coordinate_for_same_column
+    else
+      @coordinates_to_check
+    end
   end
 
 end
