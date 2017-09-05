@@ -13,7 +13,6 @@ class DisplayBoardTest < Minitest::Test
     assert_instance_of Array, display.board_layout
     assert_equal ["A", "B", "C", "D"], display.row_label
     assert_equal ["1", "2", "3", "4"], display.column_label
-    assert_equal [], display.all_coordinates
   end
 
   def test_it_renders_board

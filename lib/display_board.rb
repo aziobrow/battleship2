@@ -1,14 +1,13 @@
 require_relative 'game_board'
 
 class DisplayBoard
-  attr_reader :board_layout, :row_label, :column_label, :board, :all_coordinates
+  attr_reader :board_layout, :row_label, :column_label, :board
 
     def initialize(board)
       @board_layout = Array.new(4, " ").map{|row| Array.new(4, " ")}
       @row_label = ["A", "B", "C", "D"]
       @column_label = ["1", "2", "3", "4"]
       @board = board
-      @all_coordinates = []
     end
 
     def render_board
@@ -26,9 +25,10 @@ class DisplayBoard
   end
 
   def render_shot(coordinate)
-    @all_coordinates << coordinate
+    shots = @board.all_shots
 
-    @all_coordinates.each do |coordinate|
+
+    shots.each do |coordinate|
       row = @row_label.index(coordinate[0])
       column = @column_label.index(coordinate[1])
 

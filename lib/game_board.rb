@@ -1,7 +1,7 @@
 class GameBoard
 
   attr_reader :board, :rows, :columns
-  attr_accessor :two_unit_ship, :three_unit_ship, :winning_positions
+  attr_accessor :two_unit_ship, :three_unit_ship, :winning_positions, :all_shots
   def initialize
     @rows = ['A', 'B', 'C', 'D']
     @columns = ['1', '2', '3', '4']
@@ -9,6 +9,7 @@ class GameBoard
     @winning_positions = []
     @two_unit_ship = []
     @three_unit_ship = []
+    @all_shots = []
   end
 
   def setup_board

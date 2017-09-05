@@ -1,5 +1,6 @@
 require_relative 'test_helper'
 require './lib/game_board'
+require './lib/shots_fired'
 
 class GameBoardTest < Minitest::Test
 
@@ -10,6 +11,7 @@ class GameBoardTest < Minitest::Test
     assert_equal 4, game_board.board.count
     assert_equal [], game_board.two_unit_ship
     assert_equal [], game_board.three_unit_ship
+    assert_equal [], game_board.all_shots
 
     assert_equal [{"A1"=>nil}, {"A2"=>nil}, {"A3"=>nil}, {"A4"=>nil}], game_board.board[0]
     assert_equal [{"B1"=>nil}, {"B2"=>nil}, {"B3"=>nil}, {"B4"=>nil}], game_board.board[1]
@@ -73,6 +75,14 @@ class GameBoardTest < Minitest::Test
     game_board.board[0][3] = {key1 => true}
 
     assert_equal ({'A4'=>true}), game_board.find_game_square('A4')
+  end
+
+  def test_a_shot_updates_all_shots
+    game_board = GameBoard.new
+    shot = ShotsFired.new(game_board, 'B2')
+    shot.shot_is_fired
+
+    assert_equal ['B2'], game_board.all_shots
   end
 
 end
