@@ -52,5 +52,13 @@ class GameBoard
     end
     all_keys.flatten
   end
-  
+
+  def find_key_value(value)
+    @board.each do |row|
+      row.each do |game_square|
+        return game_square[value] if value == game_square.keys[0]
+      end
+    end
+  end
+
 end

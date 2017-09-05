@@ -61,5 +61,15 @@ class GameBoardTest < Minitest::Test
     assert_equal expected_value, game_board.get_all_keys
   end
 
+  def test_it_can_find_key_value
+    game_board = GameBoard.new
+
+    assert_nil game_board.find_key_value('A1')
+
+    key1 = game_board.board[0][3].keys[0]
+    game_board.board[0][3] = {key1 => true}
+
+    assert_equal true, game_board.find_key_value('A4')
+  end
 
 end

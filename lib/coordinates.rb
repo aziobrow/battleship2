@@ -50,4 +50,11 @@ class Coordinates
     false
   end
 
+  def already_occupied?
+    @coordinates_to_check.each do |coordinate|
+      return true if @game_board.find_key_value(coordinate)
+    end
+    false
+  end
+
 end

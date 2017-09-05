@@ -1,4 +1,5 @@
 require_relative 'test_helper'
+require './lib/game_board'
 require './lib/coordinates'
 
 class CoordinatesTest < Minitest::Test
@@ -76,6 +77,20 @@ class CoordinatesTest < Minitest::Test
     coordinates = Coordinates.new(['C2', 'B7'])
 
     refute coordinates.coordinates_exist?
+  end
+
+  def test_it_knows_if_coordinates_have_already_been_chosen
+    coordinates = Coordinates.new(['A1', 'A3'])
+
+    refute coordinates.already_occupied?
+
+    game_board = GameBoard.new
+    key1 = game_board.board[0][3].keys[0]
+    game_board.board[0][3] = {key1 => true}
+
+    coordinates = Coordinates.new(['A4', 'B4'], game_board)
+
+    assert coordinates.already_occupied?
   end
 
 
