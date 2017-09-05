@@ -18,13 +18,14 @@ class GameBoard
     end
   end
 
-  
-  def win_condition
+  def winning_coordinates
+    ship_coordinates = []
     @board.each do |row|
-      row.each_key do |game_square|
-        @winning_positions << row[key] if row[key] != nil
+      row.each do |game_square|
+        ship_coordinates << game_square.keys if game_square.values[0] != nil
       end
     end
+    ship_coordinates.flatten
   end
 
 end

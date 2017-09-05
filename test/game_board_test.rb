@@ -14,4 +14,16 @@ class GameBoardTest < Minitest::Test
     assert_equal [{"C1"=>nil}, {"C2"=>nil}, {"C3"=>nil}, {"C4"=>nil}], game_board.board[2]
     assert_equal [{"D1"=>nil}, {"D2"=>nil}, {"D3"=>nil}, {"D4"=>nil}], game_board.board[3]
   end
+
+  def test_it_can_find_winning_coordinates
+    game_board = GameBoard.new
+    key1 = game_board.board[0][3].keys[0]
+    key2 = game_board.board[1][2].keys[0]
+    game_board.board[0][3] = {key1 => true}
+    game_board.board[1][2]= {key2 => true}
+
+    assert_equal ['A4', 'B3'], game_board.winning_coordinates
+  end
+
+
 end
