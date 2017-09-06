@@ -15,68 +15,63 @@ class ComputerPlayer
     first_coordinate = row.concat(column)
   end
 
-  def invalid_previous?(coordinate, size)
-    previous_in_row = previous_coordinate_in_row(game_square, size)
-    previous_in_column = previous_coordinate_in_column(game_square, size)
-    return true if previous_in_row.include?("0") or previous_in_row.include?("/")
-    return true if previous_in_column.include?("@") or previous_in_column.include?("?")
-    false
+  def list_possible_coordinates(first_coordinate_square, size)
+      right_and_up_spaces = next_coordinates(first_coordinate_square, size)
+      left_and_down_spaces = previous_coordinates(first_coordinate_square, size)
+      possibilities = right_and_up_spaces.concat(left_and_down_spaces)
+      possibilities.compact
   end
 
-  def invalid_next?(coordinate, size)
-    next_in_row = next_coordinate_in_row(game_square, size)
-    next_in_column = next_coordinate_in_column(game_square, size)
-    return true if next_in_row.include?('5') or next_in_row.include?('6')
-    return true if next_in_row.include?('E') or next_in_row.include?('F')
-    false
+  def find_indices(first_coordinate_square)
+    row_index = @computer_board.find_game_square_row(first_coordinate_square)
+    column_index = @computer_board.find_game_square_column(first_coordinate_square)
+    indices = [row_index, column_index]
   end
 
-  def choose_row_or_column
-    ['row', 'column'].sample
+  def next_coordinates(first_coordinate_square, size)
+    possible_coordinates = []
+    indices = find_indices(first_coordinate_square)
+    possible_coordinates << next_coordinate_in_row(indices, size)
+    possible_coordinates << next_coordinate_in_column(indices, size)
   end
 
-  def valid_two_unit_ships#not sure about this one
-    if choose_row_or_column == 'row'
-      next_coordinate_in_row
+  def next_coordinate_in_row(indices, size)
+    row = @computer_board.board[indices[0]]
+    if indices[1] + size < 4
+      next_game_square = row[indices[1] + size]
+      next_game_square.keys[0]
     else
-      next_coordinate_in_column
+      return nil
     end
   end
 
-  def next_coordinate_in_row(first_coordinate_square, size)
-    row_index = @computer_board.find_game_square_row(first_coordinate_square)
-    column_index = @computer_board.find_game_square_column(first_coordinate_square)
-    row = @computer_board.board[row_index]
-    next_game_square = row[column_index + size]
-    next_game_square.keys[0]
+  def next_coordinate_in_column(indices, size)
+    column = @computer_board.collect_column(indices[1]+1)
+    if indices[0] + size < 4
+      next_game_square = column[indices[0] + size]
+      next_game_square.keys[0]
+    else
+      return nil
+    end
   end
 
-  def next_coordinate_in_column(first_coordinate_square, size)
-    column_index = @computer_board.find_game_square_column(first_coordinate_square)
-    row_index = @computer_board.find_game_square_row(first_coordinate_square)
-    column = @computer_board.collect_column(column_index+1)
-    next_game_square = column[row_index + size]
-    next_game_square.keys[0]
+  def previous_coordinates(first_coordinate_square, size)
+    possible_coordinates = []
+    indices = find_indices(first_coordinate_square)
+    possible_coordinates << previous_coordinate_in_row(indices, size)
+    possible_coordinates << previous_coordinate_in_column(indices, size)
   end
 
-  def previous_coordinate_in_row(first_coordinate_square, size)
-    row_index = @computer_board.find_game_square_row(first_coordinate_square)
-    column_index = @computer_board.find_game_square_column(first_coordinate_square)
-    row = @computer_board.board[row_index]
-    previous_game_square = row[column_index - size]
+  def previous_coordinate_in_row(indices, size)
+    row = @computer_board.board[indices[0]]
+    previous_game_square = row[indices[1]- size]
     previous_game_square.keys[0]
   end
 
-  def next_coordinate_in_column(first_coordinate_square, size)
-    column_index = @computer_board.find_game_square_column(first_coordinate_square)
-    row_index = @computer_board.find_game_square_row(first_coordinate_square)
-    column = @computer_board.collect_column(column_index+1)
-    previous_game_square = column[row_index - size]
+  def previous_coordinate_in_column(indices, size)
+    column = @computer_board.collect_column(indices[1]+1)
+    previous_game_square = column[indices[0] - size]
     previous_game_square.keys[0]
   end
-
-
-
-
 
 end
