@@ -1,10 +1,3 @@
-require './lib/instructions'
+require './lib/game_sequence'
 
-class Battleship
-
-  attr_reader
-
-  def initialize
-
-  end
-end
+GameSequence.new.initiate_game_sequence

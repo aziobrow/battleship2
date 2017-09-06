@@ -22,12 +22,18 @@ class UserInteraction
     welcome_choice = 'p' || welcome_choice == 'play'
   end
 
-  def place_two_unit_ship
+  def choose_two_unit_ship
     p "I have laid out my ships on the grid."
     p "You now need to layout your two ships."
     p "The first is two units long and the second is three units long."
     p "The grid has A1 at the top left and D4 at the bottom right."
     p "Enter the squares for the two-unit ship:"
+
+    coordinates = gets.chomp
+  end
+
+  def choose_three_unit_ship
+    p "Now enter the first and last coordinates for your three-unit ship."
 
     coordinates = gets.chomp
   end
@@ -61,6 +67,8 @@ class UserInteraction
 
   def invalid_ship_placement_message
     p "Your coordinates are invalid. Please enter valid coordinates."
+
+    coordinates = gets.chomp
   end
 
   def enter_shot_coordinate
@@ -81,11 +89,11 @@ class UserInteraction
   end
 
   def player_won
-    p "You're the 'bomb!' You won! It took you #{whatever} shots and #{whatever}" time to finish the game!
+    p "You're the 'bomb!' You won! It took you 13 shots and 1 min time to finish the game!"
   end
 
   def player_lost
-    p "Sorry, this time you're sunk. It took the computer #{whatever} shots and #{whatever} time to win."
+    p "Sorry, this time you're sunk. It took the computer #15 shots and 3 min time to win."
   end
 
 
