@@ -35,6 +35,11 @@ class ComputerPlayerTest < Minitest::Test
     square = ai_player.computer_board.find_game_square('A4')
 
     assert_equal [0,3], ai_player.find_indices(square)
+
+    square = ai_player.computer_board.find_game_square('D1')
+
+    assert_equal [3,0], ai_player.find_indices(square)
+
   end
 
   def test_it_can_name_next_coordinates_in_row_and_column
@@ -83,6 +88,19 @@ class ComputerPlayerTest < Minitest::Test
     assert_equal 'A2', ai_player.previous_coordinate_in_column([1,1], 1)
 
     assert_equal 'B3', ai_player.previous_coordinate_in_column([3,2], 2)
+  end
+
+  def test_it_can_name_coordinates_of_two_unit_ship
+    ai_player = ComputerPlayer.new
+
+    p ai_player.choose_ship_coordinates(1)
+  end
+
+  def test_it_can_name_coordinates_of_three_unit_ship
+    ai_player = ComputerPlayer.new
+
+
+    p ai_player.choose_ship_coordinates(2)
   end
 
 end
