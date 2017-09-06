@@ -12,11 +12,11 @@ class DisplayBoard
 
     def render_board
     print "\t"
-    print @row_label.join("\t")
+    print @column_label.join("\t")
     print "\n"
     puts
     @board_layout.each_with_index do |row, index|
-      print @column_label[index]
+      print @row_label[index]
       print "\t"
       print row.join("\t")
       print "\n"

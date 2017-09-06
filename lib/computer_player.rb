@@ -10,8 +10,8 @@ class ComputerPlayer
   end
 
   def choose_first_coordinate
-    random_row = ['A','B','C','D'].sample
-    random_column = ['1','2','3','4'].sample
+    random_row = ['B','C'].sample
+    random_column = ['1','2','3'].sample
     first_coordinate = random_row.concat(random_column)
 
   end

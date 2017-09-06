@@ -30,7 +30,6 @@ class GameSequence
       computer_ship_placement_phase
       user_ship_placement_phase
       shot_sequence
-      end_game_sequence
     else
       @instructions.display_welcome_screen
     end
@@ -51,8 +50,8 @@ class GameSequence
     ai_three_unit_coordinates = @ai.choose_ship_coordinates(2)
     coordinate_validation = Coordinates.new(ai_three_unit_coordinates, @ai_board)
     if not coordinate_validation.already_occupied?
-      coordinate_validation.generate_valid_coordinates
-      Ships.new(ai_three_unit_coordinates, @ai_board).mark_ships
+      final_three_coordinates = coordinate_validation.generate_valid_coordinates
+      Ships.new(final_three_coordinates, @ai_board).mark_ships.flatten.uniq
     else
       computer_three_ship_placement
     end
@@ -80,10 +79,10 @@ class GameSequence
     coordinate_validation = Coordinates.new(coordinates, @player_board)
     if not coordinate_validation.invalid_ship_placement?
       validated_coordinates = coordinate_validation.generate_valid_coordinates
-      Ships.new(validated_coordinates, @player_board).mark_ships
+      Ships.new(validated_coordinates, @player_board).mark_ships.flatten.uniq
     else
       new_coordinates = @user_interaction.invalid_ship_placement_message.split
-      user_ship_placement(new_coordinates)
+      user_coordinate_validation(new_coordinates)
     end
   end
 
@@ -109,28 +108,23 @@ class GameSequence
 
 
   def shot_sequence
-    ai_win_condition = @ai_shots.shots_board.winning_positions
-    player_win_condition = @player_shots.shots_board.winning_positions
-    until @ai_shots.win?(ai_win_condition) || @player_shots.win?(player_win_condition)
-      user_takes_shot
-      computer_takes_shot
+    user_takes_shot
+    computer_takes_shot
+    ai_win_condition = @ai_board.winning_positions
+    player_win_condition = @player_board.winning_positions
+    if @ai_shots.win?(ai_win_condition) || @player_shots.win?(player_win_condition)
+      end_game_sequence
     end
   end
 
   def end_game_sequence
-    ai_win_condition = @ai_shots.shots_board.winning_positions
-    player_win_condition = @player_shots.shots_board.winning_positions
+    ai_win_condition = @ai_board.winning_positions
     if @ai_shots.win?(ai_win_condition)
       @user_interaction.player_lost
     else
       @user_interaction.player_won
     end
   end
-
-
-
-
-
 
 
 end

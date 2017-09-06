@@ -25,8 +25,8 @@ class ShotsFired
   def valid_shot_is_fired(shot)
     hits = @shots_board.winning_positions
     @shots_board.all_shots << shot
-    shot_response(hits)
-    render_shot_on_game_board
+    shot_response(hits, shot)
+    render_shot_on_game_board(shot)
   end
 
   def shot_response(hits, shot)

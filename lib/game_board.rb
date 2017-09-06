@@ -36,9 +36,9 @@ class GameBoard
     keys.flatten
   end
 
-  # def winning_coordinates
-  #   winning = @two_unit_ship.merge(@three_unit_ship)
-  # end
+  def winning_coordinates
+    @winning_coordinates = @two_unit_ship + @three_unit_ship
+  end
 
   def get_all_keys
     all_keys = []
