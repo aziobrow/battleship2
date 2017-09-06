@@ -54,8 +54,6 @@ class UserInteraction
     end
   end
 
-
-
   def choose_ship_placement
     p "Please enter the first and last coordinate of your ship."
     coordinates = gets.chomp
@@ -63,13 +61,15 @@ class UserInteraction
 
   def invalid_ship_placement_message
     p "Your coordinates are invalid. Please enter valid coordinates."
-    coordinates = gets.chomp
-
   end
 
   def enter_shot_coordinate
     p "Fire away! Please enter the coordinate."
     shot_coordinate = gets.chomp
+  end
+
+  def invalid_shot_message
+    p "Sorry, you already shot at that space."
   end
 
   def hit_message

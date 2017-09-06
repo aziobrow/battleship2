@@ -5,7 +5,8 @@ class GameSequence
     @player_board = GameBoard.new
     @ai_board = GameBoard.new
     @ai = ComputerPlayer.new(@ai_board)
-    @welcome_screen = WelcomeScreen.new
+    @ai_shots = ShotsFired.new(@ai_board)
+    @player_shots = ShotsFired.new(@player_board)
   end
 
 
@@ -20,6 +21,7 @@ class GameSequence
       user_two_ship_placement
     else
       @instructions.display_welcome_screen
+    end
   end
 
   def computer_two_ship_placement_phase
@@ -38,10 +40,54 @@ class GameSequence
     end
   end
 
-  def user_two_ship_placement
-    user_two_unit_coordinates = @user_interaction.place_two_unit_ship
-    coordinate_validation = Coordinates.new(user_two_unit_coordinates)
-    coordinate_validation.invalid_ship_placement?
+  #put this in battleship class user_two_unit_coordinates = @user_interaction.place_two_unit_ship
+  #do again for user three_unit_coordinates
+
+  def user_ship_placement(coordinates)
+    coordinate_validation = Coordinates.new(coordinates, @player_board)
+    if not coordinate_validation.invalid_ship_placement?
+      generate_valid_coordinates
+    else
+      new_coordinates = @user_interaction.invalid_ship_placement_message
+      user_ship_placement(new_coordinates)
+    end
+  end
+
+
+  def user_takes_shot
+    user_shot = @user_interaction.enter_shot_coordinate
+    if @player_shots.duplicate_shot?(user_shot)
+      @user_interaction.invalid_shot_message
+      user_takes_shot
+    else
+      @player_shots.valid_shot_is_fired(user_shot)
+    end
+  end
+
+  def computer_takes_shot
+    ai_shot = @ai.choose_first_coordinate#make sure this is array of string
+    if @ai_shots.duplicate_shot?(ai_shot)
+      computer_takes_shot
+    else
+      @ai_shots.valid_shot_is_fired(ai_shot)
+    end
+  end
+
+
+  def shot_sequence
+    until @ai_shots.win? || @player_shots.win?
+      user_takes_shot
+      computer_takes_shot
+    end
+  end
+
+  def winning_sequence
+    if @ai_shots.win?
+      @user_interaction.player_lost
+    else
+      @user_interaction.player_won
+    end
+  end
 
 
 

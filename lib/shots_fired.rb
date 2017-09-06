@@ -5,37 +5,35 @@ class ShotsFired
 
   attr_reader :all_shots, :shots_board, :shots_display, :shot_coordinate
 
-  def initialize(game_board, shot_coordinate)
+  def initialize(game_board)
     @shots_board = game_board
     @shots_display = DisplayBoard.new(@shots_board)
-    @shot_coordinate = shot_coordinate
   end
 
   def win?(hits)
     (@shots_board.all_shots & hits) == hits
   end
 
-  def winning_sequence
-    #enter win sequence in messages
+  def render_shot_on_game_board(shot)
+    @shots_display.render_shot(shot)
   end
 
-  def render_shot_on_game_board
-    @shots_display.render_shot(@shot_coordinate)
+  def duplicate_shot?(shot)
+    @shots_board.all_shots.include?(shot)
   end
 
-  def shot_is_fired
+  def valid_shot_is_fired(shot)
     hits = @shots_board.winning_positions
-    @shots_board.all_shots << @shot_coordinate
+    @shots_board.all_shots << shot
     shot_response(hits)
     render_shot_on_game_board
   end
 
-  def shot_response(hits)
-    if hits.include?(@shot_coordinate)
-      #message about hits
-      check_for_win(hits)
+  def shot_response(hits, shot)
+    if hits.include?(shot)
+      UserInteraction.new.hit_message
     else
-      #message about miss
+      UserInteraction.new.miss_message
     end
   end
 
