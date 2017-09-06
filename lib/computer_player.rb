@@ -5,8 +5,8 @@ class ComputerPlayer
 
   attr_reader :computer_board
 
-  def initialize
-    @computer_board = GameBoard.new
+  def initialize(computer_board)
+    @computer_board = computer_board
   end
 
   def choose_first_coordinate

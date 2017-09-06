@@ -95,6 +95,7 @@ class Coordinates
   end
 
   def generate_valid_coordinates
+    #probably not return--probably ask for newn coordinates
     p "Sorry, invalid coordinates. Try again." and return if invalid_ship_placement?
     if three_coordinates? && same_row?
       add_third_coordinate_for_same_row
@@ -104,5 +105,6 @@ class Coordinates
       @coordinates_to_check
     end
   end
+
 
 end

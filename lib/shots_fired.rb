@@ -11,10 +11,12 @@ class ShotsFired
     @shot_coordinate = shot_coordinate
   end
 
-  def check_for_win(hits)
-    if (@shots_board.all_shots & hits) == hits
-        #return win sequence
-    end
+  def win?(hits)
+    (@shots_board.all_shots & hits) == hits
+  end
+
+  def winning_sequence
+    #enter win sequence in messages
   end
 
   def render_shot_on_game_board

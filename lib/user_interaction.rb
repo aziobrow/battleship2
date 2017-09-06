@@ -1,4 +1,4 @@
-class Instructions
+class UserInteraction
 
   def display_welcome_screen
     p "Welcome to BATTLESHIP"
@@ -6,7 +6,23 @@ class Instructions
     player_choice = gets.chomp.downcase
   end
 
-  def play_game
+  def quit_program
+    Kernel.exit
+  end
+
+  def user_wants_to_quit?(welcome_choice)
+    welcome_choice == 'q' || welcome_choice == 'quit'
+  end
+
+  def user_wants_instructions?(welcome_choice)
+    welcome_choice == 'i' || welcome_choice == 'instructions'
+  end
+
+  def user_is_ready_to_play?(welcome_choice)
+    welcome_choice = 'p' || welcome_choice == 'play'
+  end
+
+  def place_two_unit_ship
     p "I have laid out my ships on the grid."
     p "You now need to layout your two ships."
     p "The first is two units long and the second is three units long."
@@ -33,28 +49,12 @@ class Instructions
     if user_keystroke != "\n"
       p "Please press enter."
       user_keystroke = gets
-      press_enter_to_continue(user_keystroke)
     else
       display_welcome_screen
     end
   end
 
-  def quit_program
-    Kernel.exit
-  end
 
-  def welcome_screen_selection
-    starting_choice = display_welcome_screen
-    if starting_choice == 'q' || starting_choice == 'quit'
-      quit_program
-    elsif starting_choice == 'i' || starting_choice == 'instructions'
-      display_game_instructions
-    elsif starting_choice = 'p' || starting_choice == 'play'
-      play_game
-    else
-      display_welcome_screen
-    end
-  end
 
   def choose_ship_placement
     p "Please enter the first and last coordinate of your ship."
