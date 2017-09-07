@@ -26,6 +26,7 @@ class GameSequence
       @user_interaction.quit_program
     elsif @user_interaction.user_wants_instructions?(welcome_choice)
       @user_interaction.display_game_instructions
+      introductory_phase
     elsif @user_interaction.user_is_ready_to_play?(welcome_choice)
       computer_ship_placement_phase
       user_ship_placement_phase
@@ -106,8 +107,8 @@ class GameSequence
   def shot_sequence
     user_takes_shot
     computer_takes_shot
-    ai_win_condition = @ai_board.winning_coordinates
-    player_win_condition = @player_board.winning_coordinates
+    ai_win_condition = @ai_board.winning_coordinates.flatten
+    player_win_condition = @player_board.winning_coordinates.flatten
     if @ai_shots.win?(ai_win_condition) || @player_shots.win?(player_win_condition)
       end_game_sequence
     end

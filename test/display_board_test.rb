@@ -1,6 +1,8 @@
 require_relative 'test_helper'
 require './lib/display_board'
 require './lib/game_board'
+require './lib/shots_fired'
+require './lib/user_interaction'
 
 class DisplayBoardTest < Minitest::Test
 
@@ -24,13 +26,15 @@ class DisplayBoardTest < Minitest::Test
 
   def test_it_renders_shot
     board = GameBoard.new
+    shots = ShotsFired.new(board)
     display = DisplayBoard.new(board)
+    shots.valid_shot_is_fired('C2')
 
-    display.render_shot('C2')
+    board.two_unit_ship = ['A1', 'A2']
+    board.three_unit_ship = ['B2', 'B3','B4']
+    shots.valid_shot_is_fired('A1')
 
-    board.winning_positions = ['A1', 'A2']
-
-    display.render_shot('A1')
+    shots.valid_shot_is_fired('A1')
   end
 
 end

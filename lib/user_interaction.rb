@@ -55,8 +55,6 @@ class UserInteraction
     if user_keystroke != "\n"
       p "Please press enter."
       user_keystroke = gets
-    else
-      display_welcome_screen
     end
   end
 
@@ -88,12 +86,22 @@ class UserInteraction
     p "That's a miss."
   end
 
+  def two_ship_sunk_message
+    p "The two-unit ship has been sunk!"
+  end
+
+  def three_ship_sunk_message
+    p "The three-unit ship has been sunk!"
+  end
+
   def player_won
-    p "You're the 'bomb!' You won! It took you 13 shots and 1 min time to finish the game!"
+    p "You're the 'bomb!' You won! It took you 10 shots and 1 min time to finish the game!"
+    Kernel.exit
   end
 
   def player_lost
-    p "Sorry, this time you're sunk. It took the computer #15 shots and 3 min time to win."
+    p "Sorry, this time you're sunk. It took the computer 10 shots and 1 min time to win."
+    Kernel.exit
   end
 
 

@@ -31,7 +31,6 @@ class ShotsFired
 
   def shot_response(hits, shot)
     if hits.include?(shot)
-      require "pry"; binding.pry
       UserInteraction.new.hit_message
     else
       UserInteraction.new.miss_message

@@ -25,13 +25,14 @@ class DisplayBoard
   end
 
   def render_shot(coordinate)
-    shots = @board.all_shots
+    shots = @board.all_shots.sort
+    #require "pry"; binding.pry
 
     shots.each do |coordinate|
       row = @row_label.index(coordinate[0])
       column = @column_label.index(coordinate[1])
 
-      if @board.winning_coordinates.include?(coordinate)
+      if @board.winning_coordinates.flatten.include?(coordinate)
         @board_layout[row][column] = 'H'
         render_board
       else
