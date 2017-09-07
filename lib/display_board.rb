@@ -31,7 +31,7 @@ class DisplayBoard
       row = @row_label.index(coordinate[0])
       column = @column_label.index(coordinate[1])
 
-      if @board.winning_positions.include?(coordinate)
+      if @board.winning_coordinates.include?(coordinate)
         @board_layout[row][column] = 'H'
         render_board
       else

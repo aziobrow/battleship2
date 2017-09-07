@@ -3,7 +3,7 @@ require './lib/display_board'
 
 class ShotsFired
 
-  attr_reader :all_shots, :shots_board, :shots_display, :shot_coordinate
+  attr_reader :shots_board, :shots_display
 
   def initialize(game_board)
     @shots_board = game_board
@@ -23,7 +23,7 @@ class ShotsFired
   end
 
   def valid_shot_is_fired(shot)
-    hits = @shots_board.winning_positions
+    hits = @shots_board.winning_coordinates.flatten
     @shots_board.all_shots << shot
     shot_response(hits, shot)
     render_shot_on_game_board(shot)
@@ -31,6 +31,7 @@ class ShotsFired
 
   def shot_response(hits, shot)
     if hits.include?(shot)
+      require "pry"; binding.pry
       UserInteraction.new.hit_message
     else
       UserInteraction.new.miss_message

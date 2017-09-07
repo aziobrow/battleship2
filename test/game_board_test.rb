@@ -1,6 +1,7 @@
 require_relative 'test_helper'
 require './lib/game_board'
 require './lib/shots_fired'
+require './lib/user_interaction'
 
 class GameBoardTest < Minitest::Test
 
@@ -79,10 +80,18 @@ class GameBoardTest < Minitest::Test
 
   def test_a_shot_updates_all_shots
     game_board = GameBoard.new
-    shot = ShotsFired.new(game_board, 'B2')
-    shot.shot_is_fired
+    shot = ShotsFired.new(game_board)
+    shot.valid_shot_is_fired('B2')
 
     assert_equal ['B2'], game_board.all_shots
+
+    shot.valid_shot_is_fired('C3')
+
+    assert_equal ['B2', 'C3'], game_board.all_shots
+
+    shot.valid_shot_is_fired('D1')
+
+    assert_equal ['B2', 'C3', 'D1'], game_board.all_shots
   end
 
   def test_it_finds_column_of_game_square

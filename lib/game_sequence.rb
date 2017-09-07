@@ -94,7 +94,7 @@ class GameSequence
   end
 
   def computer_takes_shot
-    ai_shot = @ai.choose_first_coordinate#make sure this is array of string
+    ai_shot = @ai.choose_first_coordinate
     if @ai_shots.duplicate_shot?(ai_shot)
       computer_takes_shot
     else
@@ -106,11 +106,12 @@ class GameSequence
   def shot_sequence
     user_takes_shot
     computer_takes_shot
-    ai_win_condition = @ai_board.winning_positions
-    player_win_condition = @player_board.winning_positions
+    ai_win_condition = @ai_board.winning_coordinates
+    player_win_condition = @player_board.winning_coordinates
     if @ai_shots.win?(ai_win_condition) || @player_shots.win?(player_win_condition)
       end_game_sequence
     end
+    shot_sequence
   end
 
   def end_game_sequence
