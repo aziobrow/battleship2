@@ -27,7 +27,6 @@ class DisplayBoard
   def render_shot(coordinate)
     shots = @board.all_shots
 
-
     shots.each do |coordinate|
       row = @row_label.index(coordinate[0])
       column = @column_label.index(coordinate[1])

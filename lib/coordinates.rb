@@ -81,7 +81,7 @@ class Coordinates
     three_coordinates = [first_coordinate, middle_coordinate, third_coordinate]
   end
 
-  def invalid_ship_placement? #put in ships class?
+  def invalid_ship_placement? 
     coordinates = @coordinates_to_check
     return true if coordinates.length != 2
     return true if same_column? && same_row?
@@ -89,13 +89,12 @@ class Coordinates
     return true if already_occupied?
     return true if count_coordinate_range > 2
     return true if !coordinates_exist?
-    # return true if count_coordinate_range == 2 and @three_unit_ship == true
-    # return true if count_coordinate_range == 1 and @two_unit_ship == true
+    return true if count_coordinate_range == 2 and @three_unit_ship == true
+    return true if count_coordinate_range == 1 and @two_unit_ship == true
     false
   end
 
   def generate_valid_coordinates
-    #probably not return--probably ask for newn coordinates
     p "Sorry, invalid coordinates. Try again." and return if invalid_ship_placement?
     if three_coordinates? && same_row?
       add_third_coordinate_for_same_row

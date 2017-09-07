@@ -24,11 +24,6 @@ class ShotsFiredTest < Minitest::Test
     assert_equal ['A1', 'C3'], shots_board.all_shots
   end
 
-  def test_check_for_win_initiates_win_sequence
-    skip
-    #something here
-  end
-
   def test_render_shot_on_gameboard_renders_shot_in_addition_to_previous_shots
     shots_board = GameBoard.new
     shots = ShotsFired.new(shots_board, 'A1')
@@ -41,11 +36,7 @@ class ShotsFiredTest < Minitest::Test
     shots_board = GameBoard.new
     shots = ShotsFired.new(shots_board, 'B2')
 
-    #check for message about hits here, shots.shot_response(['B2'])
-
-    more_shots = ShotsFired.new(shots_board, 'C3')
-
-    #check for message about miss here, shots.shot_response(['B2'])
+    assert_instance_of UserInteraction, shots.shot_response(['B2'])
   end
 
 end

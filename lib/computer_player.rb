@@ -1,7 +1,6 @@
 require_relative 'game_board'
 
 class ComputerPlayer
-  #fetch--uses index to pull value
 
   attr_reader :computer_board
 
@@ -10,8 +9,8 @@ class ComputerPlayer
   end
 
   def choose_first_coordinate
-    random_row = ['B','C'].sample
-    random_column = ['1','2','3'].sample
+    random_row = ['A','B','C','D'].sample
+    random_column = ['1','2','3','4'].sample
     first_coordinate = random_row.concat(random_column)
 
   end
@@ -77,19 +76,10 @@ class ComputerPlayer
   end
 
   def choose_ship_coordinates(size)
-    #sometimes returns A1 and A4
     coordinate_one = choose_first_coordinate
     space = @computer_board.find_game_square(coordinate_one)
     coordinate_two = list_possible_coordinates(space, size).sample
-    [coordinate_one, coordinate_two]
-    #mark ship by creating ships.new
+    [coordinate_one, coordinate_two].sort
   end
-
-  #second time call with size 2
-  #coordinates.new
-  #add third coordinate
-  #already occupied?
-
-  #look for .fetch--i think could really help refactor
 
 end

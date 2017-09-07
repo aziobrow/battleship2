@@ -46,7 +46,6 @@ class GameSequence
   end
 
   def computer_three_ship_placement
-    #add part about putting in third coordinate
     ai_three_unit_coordinates = @ai.choose_ship_coordinates(2)
     coordinate_validation = Coordinates.new(ai_three_unit_coordinates, @ai_board)
     if not coordinate_validation.already_occupied?
@@ -71,9 +70,6 @@ class GameSequence
     user_three_unit_coordinates = @user_interaction.choose_three_unit_ship.split
     user_coordinate_validation(user_three_unit_coordinates)
   end
-
-  #put this in battleship class user_two_unit_coordinates = @user_interaction.place_two_unit_ship
-  #do again for user three_unit_coordinates
 
   def user_coordinate_validation(coordinates)
     coordinate_validation = Coordinates.new(coordinates, @player_board)

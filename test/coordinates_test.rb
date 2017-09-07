@@ -120,8 +120,7 @@ class CoordinatesTest < Minitest::Test
   end
 
   def test_it_recognizes_invalid_ship_placement
-    #put in ships class?
-    #add test for two and three unit ship conditions
+
     coordinates = Coordinates.new(['D1', 'D3'])
 
     refute coordinates.invalid_ship_placement?
