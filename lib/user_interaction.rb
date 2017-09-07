@@ -96,12 +96,10 @@ class UserInteraction
 
   def player_won
     p "You're the 'bomb!' You won! It took you 10 shots and 1 min time to finish the game!"
-    Kernel.exit
   end
 
   def player_lost
     p "Sorry, this time you're sunk. It took the computer 10 shots and 1 min time to win."
-    Kernel.exit
   end
 
 

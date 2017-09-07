@@ -107,20 +107,51 @@ class GameSequence
   def shot_sequence
     user_takes_shot
     computer_takes_shot
+    check_for_ai_ships_sunk
+    check_for_player_ships_sunk
+    if game_is_won?
+      end_game_sequence
+    else
+      shot_sequence
+    end
+  end
+
+  def check_for_ai_ships_sunk
+    two_ship = @ai_board.two_unit_ship
+    three_ship = @ai_board.three_unit_ship
+    if (@ai_board.all_shots & two_ship) == two_ship
+      UserInteraction.new.two_ship_sunk_message
+    elsif (@ai_board.all_shots & three_ship) == three_ship
+      UserInteraction.new.three_ship_sunk_message
+    else
+    end
+  end
+
+  def check_for_player_ships_sunk
+    two_ship = @player_board.two_unit_ship
+    three_ship = @player_board.three_unit_ship
+    if (@player_board.all_shots & two_ship) == two_ship
+      UserInteraction.new.two_ship_sunk_message
+    elsif (@player_board.all_shots & three_ship) == three_ship
+      UserInteraction.new.three_ship_sunk_message
+    else
+    end
+  end
+
+  def game_is_won?
     ai_win_condition = @ai_board.winning_coordinates.flatten
     player_win_condition = @player_board.winning_coordinates.flatten
-    if @ai_shots.win?(ai_win_condition) || @player_shots.win?(player_win_condition)
-      end_game_sequence
-    end
-    shot_sequence
+    @ai_shots.win?(ai_win_condition) || @player_shots.win?(player_win_condition)
   end
 
   def end_game_sequence
     ai_win_condition = @ai_board.winning_positions
     if @ai_shots.win?(ai_win_condition)
       @user_interaction.player_lost
+      Kernel.exit
     else
       @user_interaction.player_won
+      Kernel.exit
     end
   end
 
